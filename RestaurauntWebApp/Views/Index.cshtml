@@ -1,0 +1,21 @@
+﻿@{
+    Layout = null;
+    int num = 10;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <div>
+        <p><h1> Welcome @(Convert.ToInt32(ViewData["name"]) +15)</h1></p>
+        <h1>@(TempData.Peek("Training"))</h1>
+        <h2>@(num +10)</h2>
+    
+    </div>
+</body>
+</html>
