@@ -15,7 +15,7 @@ namespace RestaurauntWebApp.Models
 
         //public virtual RestaurauntWebModel Restauraunt { get; set; }
 
-        public ReviewWebModel Map (RestaurauntDataLayer.Review dr)
+        public ReviewWebModel Map (RestaurauntLibrary.Review dr)
         {
             this.ID = dr.ID;
             this.RestID = dr.RestID;
@@ -26,9 +26,9 @@ namespace RestaurauntWebApp.Models
             return this;
         }
 
-        public RestaurauntDataLayer.Review ReverseMap (ReviewWebModel wr)
+        public RestaurauntLibrary.Review ReverseMap (ReviewWebModel wr)
         {
-            RestaurauntDataLayer.Review dr = new RestaurauntDataLayer.Review
+            RestaurauntLibrary.Review dr = new RestaurauntLibrary.Review
             {
                 ID = wr.ID,
                 RestID = wr.RestID,
