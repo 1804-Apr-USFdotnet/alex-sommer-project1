@@ -18,17 +18,21 @@ namespace RestaurauntWebApp.Models
         public List<ReviewWebModel> Reviews { get; set; }
 
         //mapper
-        public RestaurauntWebModel Map(RestaurauntLibrary.Restauraunt dr)
+        public static RestaurauntWebModel Map(RestaurauntLibrary.Restauraunt dr)
         {
-            this.ID = dr.ID;
-            this.Name = dr.Name;
-            this.City = dr.City;
-            this.State = dr.State;
-            this.Address = dr.Address;
-            //this.Reviews = dr.Reviews;
-            return this; //???
+            var wr = new RestaurauntWebModel();
+            wr.ID = dr.ID;
+            wr.Name = dr.Name;
+            wr.City = dr.City;
+            wr.State = dr.State;
+            wr.Address = dr.Address;
+            foreach (Review r in dr.Reviews)
+            {
+                wr.Reviews.Add(ReviewWebModel.Map(r));
+            }
+            return wr; //???
         }
-        public RestaurauntLibrary.Restauraunt ReverseMap(RestaurauntWebModel wr)
+        public static RestaurauntLibrary.Restauraunt ReverseMap(RestaurauntWebModel wr)
         {
             RestaurauntLibrary.Restauraunt dr = new RestaurauntLibrary.Restauraunt//change to library method
             {
@@ -41,5 +45,26 @@ namespace RestaurauntWebApp.Models
             //dr.Reviews = wr.Reviews;
             return dr;
         }
+        //public IEnumerable<RestaurauntWebModel> GetRestauraunts()
+        //{
+        //    //var rests = 
+        //    //var result = rests.Select(x => Map(x));
+        //    return result;
+        //}
+
+
+        //public RestaurauntWebModel GetRestaurauntById(int id)
+        //{
+        //    return Map(/*List of Lib Restauraunts taken from db .Where id=id*/);
+        //}
+
+        public void AddRestauraunt (RestaurauntWebModel resto)
+        {
+            //unmap to lib
+            //then to crud
+            //log the add on nlog
+        }
+
+
     }
 }

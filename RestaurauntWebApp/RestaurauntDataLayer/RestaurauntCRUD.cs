@@ -6,20 +6,15 @@ using System.Threading.Tasks;
 using RestaurauntDataLayer;
 //merge with library
 
-namespace RestaurauntReviewerDataAccess
+namespace RestaurauntDataLayer
 {
     public class RestaurauntCRUD
     {
         public RestaurauntDataEntities db = new RestaurauntDataEntities();
-        
+
         public IEnumerable<Restauraunt> GetRestauraunts()
         {
-            List<Restauraunt> rl = null;
-            foreach (RestaurauntDataLayer.Restauraunt r in db.Restauraunts)
-            {
-                rl.Add(Res.DMap())
-            }
-
+           
             return db.Restauraunts;
         }
         //find restaraunt

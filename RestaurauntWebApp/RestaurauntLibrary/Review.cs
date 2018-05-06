@@ -16,13 +16,15 @@ namespace RestaurauntLibrary
         public string ReviewerComment { get; set; }
 
         //public virtual Restauraunt Restaraunt { get; set; }
-        public void DMap(RestaurauntDataLayer.Review dr)
+        public static Review DMap(RestaurauntDataLayer.Review dr)
         {
-            this.ID = dr.ID;
-            this.RestID = dr.RestID;
-            this.ReviewerName = dr.ReviewerName;
-            this.ReviewerRating = dr.ReviewerRating;
-            this.ReviewerComment = dr.ReviewerComment;
+            Review r = new Review();
+            r.ID = dr.ID;
+            r.RestID = dr.RestID;
+            r.ReviewerName = dr.ReviewerName;
+            r.ReviewerRating = dr.ReviewerRating;
+            r.ReviewerComment = dr.ReviewerComment;
+            return r;
         }
         public RestaurauntDataLayer.Review DUnmap()
         {

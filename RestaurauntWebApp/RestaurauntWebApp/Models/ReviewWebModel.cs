@@ -15,15 +15,16 @@ namespace RestaurauntWebApp.Models
 
         //public virtual RestaurauntWebModel Restauraunt { get; set; }
 
-        public ReviewWebModel Map (RestaurauntLibrary.Review dr)
+        public static ReviewWebModel Map(RestaurauntLibrary.Review dr)
         {
-            this.ID = dr.ID;
-            this.RestID = dr.RestID;
-            this.ReviewerName = dr.ReviewerName;
-            this.ReviewerRating = dr.ReviewerRating;
-            this.ReviewerComment = dr.ReviewerComment;
+            var wr = new ReviewWebModel();
+            wr.ID = dr.ID;
+            wr.RestID = dr.RestID;
+            wr.ReviewerName = dr.ReviewerName;
+            wr.ReviewerRating = dr.ReviewerRating;
+            wr.ReviewerComment = dr.ReviewerComment;
             //this.restauraunt?
-            return this;
+            return wr;
         }
 
         public RestaurauntLibrary.Review ReverseMap (ReviewWebModel wr)

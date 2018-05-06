@@ -3,36 +3,44 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using RestaurauntDataAccess;
+using RestaurauntDataLayer;
+using RestaurauntLibrary;
+using RestaurauntWebApp.Models;
 
 namespace RestaurauntWebApp.Controllers
 {
     public class RestaurauntController : Controller
     {
-        RestaurauntReviewerDataAccess.RestaurauntCRUD crud;
+        RestaurauntDataLayer.RestaurauntCRUD crud;
         //use interfaces
         //constructor
-
+        RestaurauntLibrary.BusinessLogic bl;
+       
         public RestaurauntController()
         {
-            
-            crud = new RestaurauntReviewerDataAccess.RestaurauntCRUD();
-            //fix??
+            bl = new RestaurauntLibrary.BusinessLogic();
         }
         //fakedb constructor
+
+
+        public ActionResult GetAll()
+        {
+            return View(bl.GetRestauraunts());
+        }
+
 
         // GET: Restauraunt
         [HttpGet]
         public ActionResult Index()
         {
-            var rests = crud.GetRestauraunts().ToList();//change to web model
-            return View(rests);
+            List < RestaurauntLibrary.Restauraunt > rests  = bl.GetRestauraunts();
+            return View();
         }
 
         // GET: Restauraunt/Details/5
         public ActionResult Details(int id)
         {
-            return View(crud.FindRestarauntById(id));//needs web model 
+            return View();//needs web model 
         }
 
         // GET: Restauraunt/Create

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using RestaurauntDataLayer;
 
 namespace RestaurauntLibrary
 {
@@ -29,20 +30,33 @@ namespace RestaurauntLibrary
             return (tempSum / Reviews.Count);
         }
 
-        public void DMap(RestaurauntDataLayer.Restauraunt dr)
+        public static Restauraunt DMap(RestaurauntDataLayer.Restauraunt dr)
         {
-            this.ID = dr.ID;
-            this.Name = dr.Name;
-            this.City = dr.City;
-            this.State = dr.State;
-            this.Address = dr.Address;
-            
-            for (int i = 0; i <dr.Reviews.Count; i++)
+            Restauraunt r = new Restauraunt();
+            r.ID = dr.ID;
+            r.Name = dr.Name;
+            r.City = dr.City;
+            r.State = dr.State;
+            r.Address = dr.Address;
+            r.Reviews = new List<Review>();
+            foreach (var review in dr.Reviews)
             {
-                this.Reviews.Add(new Review());
-                this.Reviews.ElementAt(i).DMap(dr.Reviews.ElementAt(i));
-
+                var temp = new Review
+                {
+                    ID = review.ID,
+                    RestID = review.RestID,
+                    ReviewerName = review.ReviewerName,
+                    ReviewerRating = review.ReviewerRating,
+                    ReviewerComment = review.ReviewerComment
+                };
+                r.Reviews.Add(temp);
             }
+
+            //for (int i = 0; i <dr.Reviews.Count; i++)
+            //{
+            //    r.Reviews.Add(Review.DMap(dr.Reviews.ElementAt(i)));
+            //}
+            return r;
         }
 
         public RestaurauntDataLayer.Restauraunt DUnmap()
@@ -61,6 +75,7 @@ namespace RestaurauntLibrary
             }
             return dr;
         }
+        
         
     }
 }

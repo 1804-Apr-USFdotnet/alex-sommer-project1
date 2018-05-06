@@ -53,6 +53,7 @@
     <Compile Include="Restauraunt.cs">
       <DependentUpon>RestaurauntDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="RestaurauntCRUD.cs" />
     <Compile Include="RestaurauntDataModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
