@@ -3,15 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using RestaurauntDataLayer;
 using RestaurauntLibrary;
-using RestaurauntWebApp.Models;
+
 
 namespace RestaurauntWebApp.Controllers
 {
     public class RestaurauntController : Controller
     {
-        RestaurauntDataLayer.RestaurauntCRUD crud;
+        //RestaurauntDataLayer.RestaurauntCRUD crud;
         //use interfaces
         //constructor
         RestaurauntLibrary.BusinessLogic bl;
@@ -27,6 +26,12 @@ namespace RestaurauntWebApp.Controllers
         {
             return View(bl.GetRestauraunts());
         }
+        public ActionResult TopThree()
+        {
+            var rests = bl.GetRestauraunts();
+            var tops = RestaurauntLibrary.BusinessLogic.TopThree(rests);
+            return View(tops);
+        }
 
 
         // GET: Restauraunt
@@ -34,64 +39,67 @@ namespace RestaurauntWebApp.Controllers
         public ActionResult Index()
         {
             List < RestaurauntLibrary.Restauraunt > rests  = bl.GetRestauraunts();
-            return View();
+            return View("GetAll");
         }
 
         // GET: Restauraunt/Details/5
         public ActionResult Details(int id)
         {
+            //bl logic details
             return View();//needs web model 
         }
 
         // GET: Restauraunt/Create
-        public ActionResult Create()
-        {
-            return View();//fix later
-        }
+        //public ActionResult Create()
+        //{
+        //    return View();//fix later
+        //}
 
         // POST: Restauraunt/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Restauraunt rest)
         {
             try
             {
                 // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
+                //baton pass to bl add
+                bl.AddRestauraunt(rest);
+                return RedirectToAction("GetAll");
             }
             catch
             {
-                return View();
+                return View("Error");
             }
         }
 
         // GET: Restauraunt/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
+        //public ActionResult Edit(int id)
+        //{
+
+        //    return View();
+        //}
 
         // POST: Restauraunt/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int id, Restauraunt rest)
         {
             try
             {
                 // TODO: Add update logic here
-
-                return RedirectToAction("Index");
+                bl.UpdateRestauraunt();//parameter
+                return RedirectToAction("GetAll");
             }
             catch
             {
-                return View();
+                return View("Error");
             }
         }
 
         // GET: Restauraunt/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
+        //public ActionResult Delete(int id)
+        //{
+        //    return View();
+        //}
 
         // POST: Restauraunt/Delete/5
         [HttpPost]
@@ -105,7 +113,7 @@ namespace RestaurauntWebApp.Controllers
             }
             catch
             {
-                return View();
+                return View("Error");
             }
         }
     }

@@ -89,6 +89,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\RestaurauntControllerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\HomeControllerTest.cs" />
   </ItemGroup>
@@ -99,6 +100,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\RestaurauntLibrary\RestaurauntLibrary.csproj">
+      <Project>{0B6731D1-9B9F-45A8-A68C-13825359E651}</Project>
+      <Name>RestaurauntLibrary</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RestaurauntWebApp\RestaurauntWebApp.csproj">
       <Project>{5F081F66-8D91-4353-91EA-E3364B6319B8}</Project>
       <Name>RestaurauntWebApp</Name>

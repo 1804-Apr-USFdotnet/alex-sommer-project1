@@ -9,21 +9,38 @@ namespace RestaurauntLibrary
     public class BusinessLogic
     {
         RestaurauntDataLayer.RestaurauntCRUD crud;
+        //List<Restauraunt> silo;
 
         public BusinessLogic()
         {
             crud = new RestaurauntDataLayer.RestaurauntCRUD();
+           // silo = GetRestauraunts();
         }
 
-        public void AddRestauraunt()
+        public void AddRestauraunt(Restauraunt rest)
         {
-
+            crud.AddRestaraunt(rest.DUnmap());
         }
-        public void AddReview() { }
-        public void DeleteRestauraunt() { }
-        public void DeleteReview() { }
-        public void UpdateRestauraunt() { }
-        public void UpdateReview() { }
+        public void AddReview(Review newRev)
+        {
+            crud.AddReview(newRev.DUnmap());
+        }
+        public void DeleteRestauraunt( Restauraunt target)
+        {
+            crud.DeleteRestaraunt(target.ID);
+        }
+        public void DeleteReview(Review delRev)
+        {
+            crud.DeleteReview(delRev.ID);
+        }
+        public void UpdateRestauraunt(Restauraunt uRest)
+        {
+            crud.UpdateRestauraunt(uRest.ID, uRest.DUnmap());
+        }
+        public void UpdateReview(Review uRev)
+        {
+            crud.UpdateReview(uRev.ID, uRev.DUnmap());
+        }
 
         public List<RestaurauntLibrary.Restauraunt> GetRestauraunts()
         {
@@ -34,6 +51,17 @@ namespace RestaurauntLibrary
                 results.Add(RestaurauntLibrary.Restauraunt.DMap(r));
             }
             return results;
+        }
+       
+        public List<Restauraunt> SearchRestaraunts(string searchName)
+        {
+            List<RestaurauntDataLayer.Restauraunt>results = crud.SearchRestaraunts(searchName);
+            List<Restauraunt> cleanList = new List<Restauraunt>();
+            foreach(RestaurauntDataLayer.Restauraunt r in results)
+            {
+                cleanList.Add(Restauraunt.DMap(r));
+            }
+            return cleanList;
         }
 
         public static List<RestaurauntLibrary.Restauraunt> TopThree(List<RestaurauntLibrary.Restauraunt> candidates)

@@ -69,10 +69,14 @@ namespace RestaurauntLibrary
                 State = this.State,
                 Address = this.Address
             };
-            for (int i = 0; i < this.Reviews.Count; i++)
+            if (this.Reviews != null)
             {
-                dr.Reviews.Add(this.Reviews.ElementAt(1).DUnmap());
+                for (int i = 0; i < this.Reviews.Count; i++)
+                {
+                    dr.Reviews.Add(this.Reviews.ElementAt(1).DUnmap());
+                }
             }
+            
             return dr;
         }
         
