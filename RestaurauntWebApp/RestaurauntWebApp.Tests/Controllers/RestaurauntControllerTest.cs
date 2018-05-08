@@ -14,7 +14,7 @@ namespace RestaurauntWebApp.Tests.Controllers
         {
             RestaurauntController cont = new RestaurauntController();
             string expected = "GetAll";
-            var action = cont.GetAll() as ViewResult;
+            var action = cont.GetAll(null) as ViewResult;
             string actual = action.ViewName;
             Assert.AreEqual(expected, actual);
         }
