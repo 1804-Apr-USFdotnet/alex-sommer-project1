@@ -22,9 +22,19 @@ namespace RestaurauntWebApp.Controllers
         //fakedb constructor
 
 
-        public ActionResult GetAll()
+        public ActionResult GetAll(string searchStr)
         {
+            if (searchStr != null)
+            {
+                var result = bl.SearchRestaraunts(searchStr);
+                return View(result);
+            }
+            else
             return View(bl.GetRestauraunts());
+        }
+        public ActionResult GetByName()
+        {
+            return View(bl.SortByName());
         }
         public ActionResult TopThree()
         {
@@ -43,17 +53,17 @@ namespace RestaurauntWebApp.Controllers
         }
 
         // GET: Restauraunt/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(int? id)
         {
-            //bl logic details
-            return View();//needs web model 
+            
+            return View(  bl.GetRestauraunt(id));//needs web model 
         }
 
         // GET: Restauraunt/Create
-        //public ActionResult Create()
-        //{
-        //    return View();//fix later
-        //}
+        public ActionResult Create()
+        {
+            return View();//fix later
+        }
 
         // POST: Restauraunt/Create
         [HttpPost]
@@ -62,9 +72,16 @@ namespace RestaurauntWebApp.Controllers
             try
             {
                 // TODO: Add insert logic here
-                //baton pass to bl add
-                bl.AddRestauraunt(rest);
-                return RedirectToAction("GetAll");
+                if (ModelState.IsValid)
+                {
+                    bl.AddRestauraunt(rest);
+                    return RedirectToAction("GetAll");
+                }
+                else
+                {
+                    return View(rest);
+                }
+                
             }
             catch
             {
@@ -73,21 +90,32 @@ namespace RestaurauntWebApp.Controllers
         }
 
         // GET: Restauraunt/Edit/5
-        //public ActionResult Edit(int id)
-        //{
-
-        //    return View();
-        //}
+        public ActionResult Edit(int id)
+        {
+            Restauraunt toEdit = bl.GetRestauraunt(id);
+            return View(toEdit);
+        }
 
         // POST: Restauraunt/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, Restauraunt rest)
+        public ActionResult Edit( Restauraunt rest)
         {
             try
             {
                 // TODO: Add update logic here
-                bl.UpdateRestauraunt();//parameter
-                return RedirectToAction("GetAll");
+                if (ModelState.IsValid)
+                {
+                    
+                    bl.UpdateRestauraunt(rest);
+                    return RedirectToAction("GetAll");
+                }
+                else
+                {
+                    return View(rest);
+                }
+                    
+                //parameter
+                
             }
             catch
             {
@@ -96,20 +124,28 @@ namespace RestaurauntWebApp.Controllers
         }
 
         // GET: Restauraunt/Delete/5
-        //public ActionResult Delete(int id)
-        //{
-        //    return View();
-        //}
+        public ActionResult Delete(int id)
+        {
+            Restauraunt toDel = bl.GetRestauraunt(id);
+            return View(toDel);
+        }
 
         // POST: Restauraunt/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(Restauraunt rest)
         {
             try
             {
                 // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    bl.DeleteRestauraunt(rest);
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    return View(rest);
+                }
             }
             catch
             {

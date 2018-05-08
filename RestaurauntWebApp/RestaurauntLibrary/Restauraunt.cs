@@ -73,7 +73,7 @@ namespace RestaurauntLibrary
             {
                 for (int i = 0; i < this.Reviews.Count; i++)
                 {
-                    dr.Reviews.Add(this.Reviews.ElementAt(1).DUnmap());
+                    dr.Reviews.Add(this.Reviews.ElementAt(i).DUnmap());
                 }
             }
             

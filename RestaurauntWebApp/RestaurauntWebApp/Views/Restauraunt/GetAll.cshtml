@@ -7,9 +7,18 @@
 
 <h2>Restauraunts</h2>
 
+<form asp-controller="Restauraunt" asp-action ="GetAll">
+    <p>
+        Search by Name: <input type="text" name="searchStr" />
+        <input type="submit" value="Search"
+    </p>
+</form>
+
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink(linkText: "Create New", actionName: "Create", controllerName: "Restauraunt") | 
+    @Html.ActionLink(linkText: "Sort by Name", actionName: "GetByName", controllerName: "Restauraunt")
 </p>
+
 <table class="table">
     <tr>
         <th>

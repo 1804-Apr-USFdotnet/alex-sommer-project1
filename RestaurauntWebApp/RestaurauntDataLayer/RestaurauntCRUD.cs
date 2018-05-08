@@ -18,7 +18,7 @@ namespace RestaurauntDataLayer
             return db.Restauraunts;
         }
         //find restaraunt
-        public Restauraunt FindRestarauntById(int searchId)
+        public Restauraunt FindRestarauntById(int? searchId)
         {
             return db.Restauraunts.Find(searchId);
         }
@@ -77,6 +77,10 @@ namespace RestaurauntDataLayer
             old.ReviewerRating = changed.ReviewerRating;
             old.ReviewerComment = changed.ReviewerComment;
             db.SaveChanges();
+        }
+        public List<Review> GetReviews(int searchId)
+        {
+            return db.Reviews.Where(x => x.RestID.Equals(searchId)).ToList();
         }
         public List<Restauraunt> SearchRestaraunts(string searchName)
         {

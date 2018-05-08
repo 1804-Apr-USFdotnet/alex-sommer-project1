@@ -150,6 +150,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RestaurauntController.cs" />
+    <Compile Include="Controllers\ReviewController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -196,8 +197,14 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Restauraunt\Create.cshtml" />
     <Content Include="Views\Restauraunt\TopThree.cshtml" />
-    <Content Include="Views\Restauraunt\Index.cshtml" />
     <Content Include="Views\Restauraunt\Details.cshtml" />
+    <Content Include="Views\Restauraunt\Edit.cshtml" />
+    <Content Include="Views\Review\RevIndex.cshtml" />
+    <Content Include="Views\Review\RevCreate.cshtml" />
+    <Content Include="Views\Review\EditRev.cshtml" />
+    <Content Include="Views\Restauraunt\Delete.cshtml" />
+    <Content Include="Views\Review\DeleteRev.cshtml" />
+    <Content Include="Views\Restauraunt\GetByName.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

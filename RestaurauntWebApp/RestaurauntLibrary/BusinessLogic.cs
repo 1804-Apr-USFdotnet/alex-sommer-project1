@@ -21,17 +21,18 @@ namespace RestaurauntLibrary
         {
             crud.AddRestaraunt(rest.DUnmap());
         }
-        public void AddReview(Review newRev)
+        public void AddReview( Review newRev)
         {
+            //newRev.RestID = restId;
             crud.AddReview(newRev.DUnmap());
         }
         public void DeleteRestauraunt( Restauraunt target)
         {
             crud.DeleteRestaraunt(target.ID);
         }
-        public void DeleteReview(Review delRev)
+        public void DeleteReview(int delId)
         {
-            crud.DeleteReview(delRev.ID);
+            crud.DeleteReview(delId);
         }
         public void UpdateRestauraunt(Restauraunt uRest)
         {
@@ -40,6 +41,15 @@ namespace RestaurauntLibrary
         public void UpdateReview(Review uRev)
         {
             crud.UpdateReview(uRev.ID, uRev.DUnmap());
+        }
+        public Review GetReviewById (int searchId)
+        {
+            return Review.DMap(crud.FindReviewById(searchId));
+        }
+
+        public Restauraunt GetRestauraunt(int? searchId)
+        {
+            return Restauraunt.DMap( crud.FindRestarauntById(searchId));
         }
 
         public List<RestaurauntLibrary.Restauraunt> GetRestauraunts()
@@ -52,7 +62,18 @@ namespace RestaurauntLibrary
             }
             return results;
         }
-       
+        public List<RestaurauntLibrary.Restauraunt> SortByName()
+        {
+            var rests = crud.GetRestauraunts();
+            List<RestaurauntLibrary.Restauraunt> results = new List<Restauraunt>();
+            foreach (RestaurauntDataLayer.Restauraunt r in rests)
+            {
+                results.Add(RestaurauntLibrary.Restauraunt.DMap(r));
+            }
+            results = results.OrderBy(b => b.Name).ToList();
+            return results;
+        }
+
         public List<Restauraunt> SearchRestaraunts(string searchName)
         {
             List<RestaurauntDataLayer.Restauraunt>results = crud.SearchRestaraunts(searchName);
@@ -63,6 +84,17 @@ namespace RestaurauntLibrary
             }
             return cleanList;
         }
+        public List<Review> GetReviews(int RestId)
+        {
+            List<Review> results = new List<Review>();
+            List<RestaurauntDataLayer.Review> data = crud.GetReviews(RestId);
+            foreach(RestaurauntDataLayer.Review r in data)
+            {
+                results.Add(Review.DMap(r));
+            }
+            return results;
+        }
+        
 
         public static List<RestaurauntLibrary.Restauraunt> TopThree(List<RestaurauntLibrary.Restauraunt> candidates)
         {
