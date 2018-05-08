@@ -3,96 +3,212 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using NLog;
 
 namespace RestaurauntLibrary
 {
+    
+
     public class BusinessLogic
     {
+        private static Logger logger = LogManager.GetCurrentClassLogger();
         RestaurauntDataLayer.RestaurauntCRUD crud;
         //List<Restauraunt> silo;
 
         public BusinessLogic()
         {
-            crud = new RestaurauntDataLayer.RestaurauntCRUD();
+            try
+            {
+                crud = new RestaurauntDataLayer.RestaurauntCRUD();
+
+            }
+            catch (Exception e)
+            {
+                logger.Debug(e.Message);
+                throw;
+            }
            // silo = GetRestauraunts();
         }
 
         public void AddRestauraunt(Restauraunt rest)
         {
-            crud.AddRestaraunt(rest.DUnmap());
+            try
+            {
+                crud.AddRestaraunt(rest.DUnmap());
+            }
+            catch (Exception e)
+            {
+                logger.Debug(e.Message);
+                throw;
+            }
         }
         public void AddReview( Review newRev)
         {
             //newRev.RestID = restId;
-            crud.AddReview(newRev.DUnmap());
+            try
+            {
+                crud.AddReview(newRev.DUnmap());
+            }
+            catch (Exception e)
+            {
+                logger.Debug(e.Message);
+                throw;
+            }
         }
         public void DeleteRestauraunt( Restauraunt target)
         {
-            crud.DeleteRestaraunt(target.ID);
+            try
+            {
+                crud.DeleteRestaraunt(target.ID);
+            }
+            catch (Exception e)
+            {
+                logger.Debug(e.Message);
+                throw;
+            }
+            
         }
         public void DeleteReview(int delId)
         {
-            crud.DeleteReview(delId);
+            try
+            {
+                crud.DeleteReview(delId);
+            }
+            catch (Exception e)
+            {
+                logger.Debug(e.Message);
+                throw;
+            }
         }
         public void UpdateRestauraunt(Restauraunt uRest)
         {
-            crud.UpdateRestauraunt(uRest.ID, uRest.DUnmap());
+            try
+            {
+                crud.UpdateRestauraunt(uRest.ID, uRest.DUnmap());
+            }
+            catch (Exception e)
+            {
+                logger.Debug(e.Message);
+                throw;
+            }
         }
         public void UpdateReview(Review uRev)
         {
-            crud.UpdateReview(uRev.ID, uRev.DUnmap());
+            try
+            {
+                crud.UpdateReview(uRev.ID, uRev.DUnmap());
+            }
+            catch (Exception e)
+            {
+                logger.Debug(e.Message);
+                throw;
+            }
         }
         public Review GetReviewById (int searchId)
         {
-            return Review.DMap(crud.FindReviewById(searchId));
+            try
+            {
+                return Review.DMap(crud.FindReviewById(searchId));
+
+            }
+            catch (Exception e)
+            {
+                logger.Debug(e.Message);
+                throw;
+            }
         }
 
         public Restauraunt GetRestauraunt(int? searchId)
         {
-            return Restauraunt.DMap( crud.FindRestarauntById(searchId));
+            try
+            {
+                return Restauraunt.DMap(crud.FindRestarauntById(searchId));
+            }
+            catch (Exception e)
+            {
+                logger.Debug(e.Message);
+                throw;
+            }
+            
         }
 
         public List<RestaurauntLibrary.Restauraunt> GetRestauraunts()
         {
-            var rests = crud.GetRestauraunts();
-            List<RestaurauntLibrary.Restauraunt> results = new List<Restauraunt>();
-            foreach (RestaurauntDataLayer.Restauraunt r in rests)
+            try
             {
-                results.Add(RestaurauntLibrary.Restauraunt.DMap(r));
+                var rests = crud.GetRestauraunts();
+                List<RestaurauntLibrary.Restauraunt> results = new List<Restauraunt>();
+                foreach (RestaurauntDataLayer.Restauraunt r in rests)
+                {
+                    results.Add(RestaurauntLibrary.Restauraunt.DMap(r));
+                }
+                return results;
             }
-            return results;
+            catch (Exception e)
+            {
+                logger.Debug(e.Message);
+                throw;
+            }
+            
         }
         public List<RestaurauntLibrary.Restauraunt> SortByName()
         {
-            var rests = crud.GetRestauraunts();
-            List<RestaurauntLibrary.Restauraunt> results = new List<Restauraunt>();
-            foreach (RestaurauntDataLayer.Restauraunt r in rests)
+            try
             {
-                results.Add(RestaurauntLibrary.Restauraunt.DMap(r));
+                var rests = crud.GetRestauraunts();
+                List<RestaurauntLibrary.Restauraunt> results = new List<Restauraunt>();
+                foreach (RestaurauntDataLayer.Restauraunt r in rests)
+                {
+                    results.Add(RestaurauntLibrary.Restauraunt.DMap(r));
+                }
+                results = results.OrderBy(b => b.Name).ToList();
+                return results;
             }
-            results = results.OrderBy(b => b.Name).ToList();
-            return results;
+            catch (Exception e)
+            {
+                logger.Debug(e.Message);
+                throw;
+            }
+            
         }
 
         public List<Restauraunt> SearchRestaraunts(string searchName)
         {
-            List<RestaurauntDataLayer.Restauraunt>results = crud.SearchRestaraunts(searchName);
-            List<Restauraunt> cleanList = new List<Restauraunt>();
-            foreach(RestaurauntDataLayer.Restauraunt r in results)
+            try
             {
-                cleanList.Add(Restauraunt.DMap(r));
+                List<RestaurauntDataLayer.Restauraunt> results = crud.SearchRestaraunts(searchName);
+                List<Restauraunt> cleanList = new List<Restauraunt>();
+                foreach (RestaurauntDataLayer.Restauraunt r in results)
+                {
+                    cleanList.Add(Restauraunt.DMap(r));
+                }
+                return cleanList;
             }
-            return cleanList;
+            catch (Exception e)
+            {
+                logger.Debug(e.Message);
+                throw;
+            }
+            
         }
         public List<Review> GetReviews(int RestId)
         {
-            List<Review> results = new List<Review>();
-            List<RestaurauntDataLayer.Review> data = crud.GetReviews(RestId);
-            foreach(RestaurauntDataLayer.Review r in data)
+            try
             {
-                results.Add(Review.DMap(r));
+                List<Review> results = new List<Review>();
+                List<RestaurauntDataLayer.Review> data = crud.GetReviews(RestId);
+                foreach (RestaurauntDataLayer.Review r in data)
+                {
+                    results.Add(Review.DMap(r));
+                }
+                return results;
             }
-            return results;
+            catch (Exception e)
+            {
+                logger.Debug(e.Message);
+                throw;
+            }
+            
         }
         
 
